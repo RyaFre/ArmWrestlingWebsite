@@ -203,9 +203,9 @@ export default function ContactPage() {
                     </div>
                     <h3 className="font-bold text-primary">Email</h3>
                     <p className="text-sm text-muted-foreground">
-                      info@armforcepro.co.za
+                      info@boerforce.co.za
                       <br />
-                      support@armforcepro.co.za
+                      support@boerforce.co.za
                     </p>
                   </CardContent>
                 </Card>

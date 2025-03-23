@@ -29,8 +29,8 @@ export default function CartDrawer() {
     updateQuantity(productId, newQuantity)
   }
 
-  const handleSizeChange = (productId: string, size: string) => {
-    updateSize(productId, size as any)
+  const handleSizeChange = (productId: string, size: "standard" | "wide" | "ultra-wide" | "regular") => {
+    updateSize(productId, size)
   }
 
   return (
@@ -133,7 +133,10 @@ export default function CartDrawer() {
                               <span className="sr-only">Increase quantity</span>
                             </Button>
                           </div>
-                          <Select value={item.size} onValueChange={(value) => handleSizeChange(item.product.id, value)}>
+                          <Select
+                            value={item.size}
+                            onValueChange={(value) => handleSizeChange(item.product.id, value as "standard" | "wide" | "ultra-wide" | "regular")}
+                          >
                             <SelectTrigger className="h-8 w-[110px]">
                               <SelectValue placeholder="Size" />
                             </SelectTrigger>

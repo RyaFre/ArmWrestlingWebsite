@@ -60,7 +60,7 @@ export default function Navbar() {
             </Sheet>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link href="/" className="flex items-center space-x-2">
-                <span className="text-xl font-bold tracking-tighter text-primary">ArmForce Pro</span>
+                <span className="text-xl font-bold tracking-tighter text-primary">BOERFORCE</span>
               </Link>
             </motion.div>
             <nav className="hidden md:flex gap-6">
@@ -79,10 +79,7 @@ export default function Navbar() {
             </nav>
           </div>
           <div className="hidden md:flex items-center gap-4">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input type="search" placeholder="Search equipment..." className="w-[200px] lg:w-[300px] pl-8" />
-            </div>
+            {/* Search bar removed */}
           </div>
           <div className="flex items-center gap-4">
             <UserMenu />

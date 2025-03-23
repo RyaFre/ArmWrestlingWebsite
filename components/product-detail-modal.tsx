@@ -51,10 +51,13 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
   const [size, setSize] = useState<"standard" | "wide" | "ultra-wide" | "regular">("standard")
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [activeTab, setActiveTab] = useState("description")
+  const [reviewRating, setReviewRating] = useState(0)
+  const [reviewName, setReviewName] = useState("")
+  const [reviewContent, setReviewContent] = useState("")
+  const [reviewSubmitted, setReviewSubmitted] = useState(false)
 
   if (!product) return null
 
-  // Generate additional product images based on the main image
   const productImages = [
     product.image,
     "https://images.pexels.com/photos/4162487/pexels-photo-4162487.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -88,10 +91,22 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
     setCurrentImageIndex((prev) => (prev - 1 + productImages.length) % productImages.length)
   }
 
+  const handleSubmitReview = () => {
+    if (reviewRating > 0 && reviewName && reviewContent) {
+      setReviewSubmitted(true)
+      setTimeout(() => {
+        setReviewRating(0)
+        setReviewName("")
+        setReviewContent("")
+        setReviewSubmitted(false)
+      }, 3000)
+    }
+  }
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+      <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden max-h-[90vh]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0 max-h-[90vh]">
           {/* Product Images */}
           <div className="relative bg-muted">
             <div className="relative h-[300px] md:h-[500px] w-full">
@@ -118,6 +133,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                 size="icon"
                 className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90"
                 onClick={prevImage}
+                aria-label="Previous image"
               >
                 <ChevronLeft className="h-6 w-6" />
               </Button>
@@ -127,6 +143,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                 size="icon"
                 className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background/90"
                 onClick={nextImage}
+                aria-label="Next image"
               >
                 <ChevronRight className="h-6 w-6" />
               </Button>
@@ -141,6 +158,8 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                     currentImageIndex === index ? "border-accent" : "border-transparent"
                   }`}
                   onClick={() => setCurrentImageIndex(index)}
+                  aria-label={`View image ${index + 1}`}
+                  title={`View image ${index + 1}`}
                 >
                   <Image
                     src={image || "/placeholder.svg"}
@@ -154,10 +173,10 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
           </div>
 
           {/* Product Details */}
-          <div className="p-6 flex flex-col h-full">
+          <div className="p-6 flex flex-col h-full overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="text-2xl font-bold text-primary">{product.name}</DialogTitle>
-              <DialogDescription className="flex items-center mt-2">
+              <div className="flex items-center mt-2">
                 <div className="flex items-center">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
@@ -171,7 +190,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                     {product.rating} ({reviews.length} reviews)
                   </span>
                 </div>
-              </DialogDescription>
+              </div>
             </DialogHeader>
 
             <Tabs defaultValue="description" className="mt-6 flex-1 flex flex-col" onValueChange={setActiveTab}>
@@ -181,8 +200,8 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                 <TabsTrigger value="reviews">Reviews</TabsTrigger>
               </TabsList>
 
-              <div className="flex-1 overflow-auto">
-                <TabsContent value="description" className="pt-4 h-full">
+              <div className="flex-1 overflow-y-auto max-h-[400px] md:max-h-[500px]">
+                <TabsContent value="description" className="pt-4 pb-6 h-full">
                   <p className="text-muted-foreground">{product.description}</p>
                   <p className="mt-4 text-muted-foreground">
                     This premium {product.category.toLowerCase()} is designed for serious arm wrestlers who demand the
@@ -209,7 +228,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                   </ul>
                 </TabsContent>
 
-                <TabsContent value="specifications" className="pt-4 h-full">
+                <TabsContent value="specifications" className="pt-4 pb-6 h-full">
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-2">
                       <div className="text-sm font-medium">Brand</div>
@@ -238,7 +257,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                   </div>
                 </TabsContent>
 
-                <TabsContent value="reviews" className="pt-4 h-full">
+                <TabsContent value="reviews" className="pt-4 pb-6 h-full relative">
                   <div className="space-y-6">
                     {reviews.map((review) => (
                       <div key={review.id} className="space-y-2">
@@ -262,6 +281,69 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                         <Separator className="mt-4" />
                       </div>
                     ))}
+
+                    <div className="mt-8">
+                      <h3 className="text-lg font-semibold mb-4">Add Your Review</h3>
+                      {reviewSubmitted ? (
+                        <div className="bg-green-50 text-green-700 p-4 rounded-md mb-4">
+                          Thank you for your review! It has been submitted successfully.
+                        </div>
+                      ) : (
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="review-rating" className="block mb-2">Rating</Label>
+                            <div className="flex">
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                <button 
+                                  key={i}
+                                  type="button"
+                                  aria-label={`Rate ${i + 1} stars`}
+                                  className="p-1 focus:outline-none focus:ring-2 focus:ring-primary-foreground rounded"
+                                  onClick={() => setReviewRating(i + 1)}
+                                >
+                                  <Star 
+                                    className={`h-6 w-6 ${
+                                      i < reviewRating ? "text-yellow-400 fill-yellow-400" : "text-gray-300 hover:text-yellow-400 hover:fill-yellow-400"
+                                    }`} 
+                                  />
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <Label htmlFor="review-name" className="block mb-2">Your Name</Label>
+                            <input 
+                              id="review-name" 
+                              type="text" 
+                              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" 
+                              placeholder="Enter your name" 
+                              value={reviewName}
+                              onChange={(e) => setReviewName(e.target.value)}
+                            />
+                          </div>
+                          
+                          <div>
+                            <Label htmlFor="review-content" className="block mb-2">Review</Label>
+                            <textarea 
+                              id="review-content" 
+                              className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary min-h-[100px]" 
+                              placeholder="Share your experience with this product"
+                              value={reviewContent}
+                              onChange={(e) => setReviewContent(e.target.value)}
+                            ></textarea>
+                          </div>
+                          
+                          <Button 
+                            className="w-full" 
+                            onClick={handleSubmitReview}
+                            disabled={!reviewRating || !reviewName || !reviewContent}
+                          >
+                            Submit Review
+                          </Button>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </TabsContent>
               </div>
@@ -277,22 +359,26 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
 
               <div className="space-y-2">
                 <Label>Size</Label>
-                <RadioGroup value={size} onValueChange={(value: any) => setSize(value)} className="flex space-x-2">
+                <RadioGroup 
+                  value={size} 
+                  onValueChange={(value: "standard" | "wide" | "ultra-wide" | "regular") => setSize(value)} 
+                  className="flex flex-wrap gap-2"
+                >
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="standard" id="standard" />
-                    <Label htmlFor="standard">Standard</Label>
+                    <RadioGroupItem value="standard" id="size-standard" />
+                    <Label htmlFor="size-standard">Standard</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="wide" id="wide" />
-                    <Label htmlFor="wide">Wide</Label>
+                    <RadioGroupItem value="wide" id="size-wide" />
+                    <Label htmlFor="size-wide">Wide</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="ultra-wide" id="ultra-wide" />
-                    <Label htmlFor="ultra-wide">Ultra-wide</Label>
+                    <RadioGroupItem value="ultra-wide" id="size-ultra-wide" />
+                    <Label htmlFor="size-ultra-wide">Ultra-wide</Label>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="regular" id="regular" />
-                    <Label htmlFor="regular">Regular</Label>
+                    <RadioGroupItem value="regular" id="size-regular" />
+                    <Label htmlFor="size-regular">Regular</Label>
                   </div>
                 </RadioGroup>
               </div>
@@ -315,7 +401,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }: Product
                 </div>
               </div>
 
-              <div className="flex space-x-2 pt-4">
+              <div className="flex space-x-2 pt-4 pb-4">
                 <Button className="flex-1 bg-accent hover:bg-accent/90" onClick={handleAddToCart}>
                   <ShoppingCart className="mr-2 h-4 w-4" />
                   Add to Cart

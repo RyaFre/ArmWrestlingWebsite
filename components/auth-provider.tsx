@@ -20,121 +20,103 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+// Helper function to generate unique IDs
+const generateId = () => {
+  return 'user_' + Math.random().toString(36).substring(2, 9);
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  // Check for existing session on mount
+  // Get user from localStorage on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem("armforce_user")
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser))
-      } catch (error) {
-        console.error("Failed to parse stored user:", error)
-        localStorage.removeItem("armforce_user")
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem("boerforce_user")
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser))
+        } catch (error) {
+          console.error("Failed to parse stored user:", error)
+          localStorage.removeItem("boerforce_user")
+        }
       }
     }
-    setIsLoading(false)
   }, [])
 
   // Mock login function
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true)
 
-    // Simulate API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Simple validation - in a real app, this would be a server call
-        if (email && password.length >= 6) {
-          // Check if user exists in localStorage (for demo purposes)
-          const users = JSON.parse(localStorage.getItem("armforce_users") || "[]")
-          const existingUser = users.find((u: any) => u.email === email)
+    // In a real app, this would be an API call
+    // For demo purposes, we'll just check against some hardcoded data
+    const users = JSON.parse(localStorage.getItem("boerforce_users") || "[]")
+    const loggedInUser = users.find(
+      (u: any) => u.email === email && u.password === password
+    )
 
-          if (existingUser && existingUser.password === password) {
-            const loggedInUser = {
-              id: existingUser.id,
-              name: existingUser.name,
-              email: existingUser.email,
-            }
+    if (loggedInUser) {
+      const userWithoutPassword = { ...loggedInUser }
+      delete userWithoutPassword.password
+      
+      setUser(userWithoutPassword)
+      localStorage.setItem("boerforce_user", JSON.stringify(userWithoutPassword))
+      setIsLoading(false)
+      return true
+    }
 
-            setUser(loggedInUser)
-            localStorage.setItem("armforce_user", JSON.stringify(loggedInUser))
-            setIsLoading(false)
-            resolve(true)
-          } else {
-            // For demo purposes, allow login with any valid email/password
-            const newUser = {
-              id: "user_" + Math.random().toString(36).substring(2, 9),
-              name: email.split("@")[0],
-              email: email,
-            }
-
-            setUser(newUser)
-            localStorage.setItem("armforce_user", JSON.stringify(newUser))
-            setIsLoading(false)
-            resolve(true)
-          }
-        } else {
-          setIsLoading(false)
-          resolve(false)
-        }
-      }, 1000) // Simulate network delay
-    })
+    setIsLoading(false)
+    return false
   }
 
   // Mock register function
   const register = async (name: string, email: string, password: string): Promise<boolean> => {
     setIsLoading(true)
 
-    // Simulate API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        if (name && email && password.length >= 6) {
-          // Check if user already exists
-          const users = JSON.parse(localStorage.getItem("armforce_users") || "[]")
-          const existingUser = users.find((user: any) => user.email === email)
+    // Create a new user object
+    const newUser = {
+      id: generateId(),
+      name,
+      email,
+      role: "customer" // Default role
+    }
 
-          if (existingUser) {
-            setIsLoading(false)
-            resolve(false)
-            return
-          }
+    // In a real app, this would be an API call
+    // For demo purposes, we'll save to localStorage
+    
+    setUser(newUser)
+    localStorage.setItem("boerforce_user", JSON.stringify(newUser))
 
-          // Create new user
-          const newUser = {
-            id: "user_" + Math.random().toString(36).substring(2, 9),
-            name,
-            email,
-            password, // In a real app, this would be hashed
-          }
-
-          // Save to "database" (localStorage)
-          users.push(newUser)
-          localStorage.setItem("armforce_users", JSON.stringify(users))
-
-          // Log user in
-          const loggedInUser = {
-            id: newUser.id,
-            name: newUser.name,
-            email: newUser.email,
-          }
-
-          setUser(loggedInUser)
-          localStorage.setItem("armforce_user", JSON.stringify(loggedInUser))
-          setIsLoading(false)
-          resolve(true)
-        } else {
-          setIsLoading(false)
-          resolve(false)
-        }
-      }, 1500) // Simulate network delay
-    })
+    // Also store the user credentials (only for demo!)
+    const userWithPassword = { ...newUser, password }
+    
+    // Get existing users
+    const users = JSON.parse(localStorage.getItem("boerforce_users") || "[]")
+    
+    // Check if email already exists
+    const existingUser = users.find((u: any) => u.email === email)
+    
+    if (existingUser) {
+      setUser(null)
+      setIsLoading(false)
+      return false
+    }
+    
+    // Add new user to list
+    users.push(userWithPassword)
+    
+    // Save back to localStorage
+    localStorage.setItem("boerforce_users", JSON.stringify(users))
+    
+    // Return success
+    localStorage.setItem("boerforce_user", JSON.stringify(newUser))
+    setIsLoading(false)
+    return true
   }
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem("armforce_user")
+    localStorage.removeItem("boerforce_user")
   }
 
   const isAuthenticated = !!user

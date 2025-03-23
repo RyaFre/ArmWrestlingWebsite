@@ -250,7 +250,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
                 >
                   <div className="absolute inset-0 flex items-center justify-center p-6">
                     <div className="max-w-sm text-center text-white">
-                      <h3 className="text-2xl font-bold mb-4">Join ArmForce Pro</h3>
+                      <h3 className="text-2xl font-bold mb-4">Join BOERFORCE</h3>
                       <p className="mb-6">
                         Create an account to access exclusive deals, track your orders, and join our community of arm
                         wrestling enthusiasts.
@@ -305,7 +305,7 @@ export default function AuthModal({ isOpen, onClose, initialView = "login" }: Au
                   <div className="space-y-6">
                     <div className="space-y-2 text-center">
                       <h2 className="text-3xl font-bold text-primary">Create Account</h2>
-                      <p className="text-sm text-muted-foreground">Sign up to join the ArmForce Pro community</p>
+                      <p className="text-sm text-muted-foreground">Sign up to join the BOERFORCE community</p>
                     </div>
 
                     <AnimatePresence>

@@ -6,11 +6,12 @@ import { AuthProvider } from "@/components/auth-provider"
 import { CartProvider } from "@/components/cart-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { Chatbot } from "@/components/chatbot"
 import "./globals.css"
 
 // Update the metadata to reflect the arm wrestling equipment focus
 export const metadata: Metadata = {
-  title: "ArmForce Pro - High-End Arm Wrestling Equipment",
+  title: "BOERFORCE - High-End Arm Wrestling Equipment",
   description: "Revolutionary training and competition equipment for professional arm wrestlers and serious athletes.",
     generator: 'v0.dev'
 }
@@ -25,7 +26,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/hk-grotesk" />
       </head>
-      <body className="min-h-screen font-sans antialiased">
+      <body className="min-h-screen font-sans antialiased" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <TRPCProvider>
             <AuthProvider>
@@ -34,6 +35,7 @@ export default function RootLayout({
                   <Navbar />
                   <div className="flex-1">{children}</div>
                   <Footer />
+                  <Chatbot />
                 </div>
               </CartProvider>
             </AuthProvider>

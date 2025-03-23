@@ -13,10 +13,10 @@ type CartContextType = {
   items: CartItem[]
   itemCount: number
   totalPrice: number
-  addItem: (product: Product, quantity: number, size: CartItem["size"]) => void
+  addItem: (product: Product, quantity: number, size: "standard" | "wide" | "ultra-wide" | "regular") => void
   removeItem: (productId: string) => void
   updateQuantity: (productId: string, quantity: number) => void
-  updateSize: (productId: string, size: CartItem["size"]) => void
+  updateSize: (productId: string, size: "standard" | "wide" | "ultra-wide" | "regular") => void
   clearCart: () => void
 }
 
@@ -25,29 +25,33 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
 
-  // Load cart from localStorage on mount
+  // Load cart from localStorage
   useEffect(() => {
-    const storedCart = localStorage.getItem("armforce_cart")
-    if (storedCart) {
-      try {
-        setItems(JSON.parse(storedCart))
-      } catch (error) {
-        console.error("Failed to parse stored cart:", error)
-        localStorage.removeItem("armforce_cart")
+    if (typeof window !== 'undefined') {
+      const storedCart = localStorage.getItem("boerforce_cart")
+      if (storedCart) {
+        try {
+          setItems(JSON.parse(storedCart))
+        } catch (error) {
+          console.error("Failed to parse cart:", error)
+          localStorage.removeItem("boerforce_cart")
+        }
       }
     }
   }, [])
 
-  // Save cart to localStorage when it changes
+  // Save cart to localStorage
   useEffect(() => {
-    localStorage.setItem("armforce_cart", JSON.stringify(items))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem("boerforce_cart", JSON.stringify(items))
+    }
   }, [items])
 
   const itemCount = items.reduce((total, item) => total + item.quantity, 0)
 
   const totalPrice = items.reduce((total, item) => total + item.product.price * item.quantity, 0)
 
-  const addItem = (product: Product, quantity: number, size: CartItem["size"]) => {
+  const addItem = (product: Product, quantity: number, size: "standard" | "wide" | "ultra-wide" | "regular") => {
     setItems((prevItems) => {
       // Check if item already exists in cart
       const existingItemIndex = prevItems.findIndex((item) => item.product.id === product.id && item.size === size)
@@ -72,7 +76,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prevItems) => prevItems.map((item) => (item.product.id === productId ? { ...item, quantity } : item)))
   }
 
-  const updateSize = (productId: string, size: CartItem["size"]) => {
+  const updateSize = (productId: string, size: "standard" | "wide" | "ultra-wide" | "regular") => {
     setItems((prevItems) => prevItems.map((item) => (item.product.id === productId ? { ...item, size } : item)))
   }
 

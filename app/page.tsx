@@ -14,166 +14,165 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen">
-      <section className="relative flex flex-col items-center justify-center px-4 py-24 md:py-32 space-y-8 min-h-[90vh]">
-        <VideoBackground
-          videoSrc="https://player.vimeo.com/external/370331493.sd.mp4?s=e90dcaba73c19e0e36f03406b47b5e33cd8b7688&profile_id=139&oauth2_token_id=57447761"
-          fallbackImage="https://images.pexels.com/photos/8111311/pexels-photo-8111311.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-        />
-
-        <div className="container flex flex-col items-center text-center space-y-4 max-w-3xl relative z-10">
-          <motion.h1
-            className="text-4xl md:text-6xl font-bold tracking-tighter text-white"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Revolutionary Arm Wrestling Equipment
-          </motion.h1>
-          <motion.p
-            className="text-xl text-white/90 max-w-[700px]"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Discover our premium selection of high-end training and competition equipment designed for serious arm
-            wrestlers and athletes.
-          </motion.p>
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 mt-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
-              <Link href="/products">
-                Shop Equipment <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+      <section className="relative min-h-[90vh] flex flex-col">
+        <div className="absolute inset-x-0 top-0 h-[90vh] z-0">
+          <VideoBackground
+            videoSrc="/4745805-uhd_3840_2160_25fps.mp4"
+            fallbackImage="/public\grey.jpeg"
+          />
+        </div>
+        <div className="relative z-10 flex flex-col items-center justify-center px-4 py-24 md:py-32 space-y-8 min-h-[90vh]">
+          <div className="container flex flex-col items-center text-center space-y-4 max-w-3xl">
+            <motion.h1
+              className="text-4xl md:text-6xl font-bold tracking-tighter text-white"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <Link href="/about">Training Guides</Link>
+              Revolutionary Arm Wrestling Equipment
+            </motion.h1>
+            <motion.p
+              className="text-xl text-white/90 max-w-[700px]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Discover our premium selection of high-end training and competition equipment designed for serious arm
+              wrestlers and athletes.
+            </motion.p>
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 mt-8"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Button asChild size="lg" className="bg-accent hover:bg-accent/90">
+                <Link href="/products">
+                  Shop Equipment <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="bg-white/10 hover:bg-white/20 text-white border-white/20"
+              >
+                <Link href="/about">Training Guides</Link>
+              </Button>
+            </motion.div>
+          </div>
+          <motion.div
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
+          >
+            <Button
+              variant="ghost"
+              className="text-white rounded-full p-2"
+              onClick={() => featuresRef.current?.scrollIntoView({ behavior: "smooth" })}
+            >
+              <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}>
+                <ArrowRight className="h-6 w-6 rotate-90" />
+              </motion.div>
             </Button>
           </motion.div>
         </div>
-
-        <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          <Button
-            variant="ghost"
-            className="text-white rounded-full p-2"
-            onClick={() => featuresRef.current?.scrollIntoView({ behavior: "smooth" })}
-          >
-            <motion.div animate={{ y: [0, 10, 0] }} transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}>
-              <ArrowRight className="h-6 w-6 rotate-90" />
-            </motion.div>
-          </Button>
-        </motion.div>
       </section>
 
       <section ref={featuresRef} className="py-20 bg-background">
-        <div className="container px-4 md:px-6">
-          <ScrollAnimation className="flex flex-col items-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary">
-                Engineered for Champions
-              </h2>
-              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                Our equipment is designed with input from world champions and biomechanics experts to deliver unmatched
-                performance and results.
-              </p>
-            </div>
-          </ScrollAnimation>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            {features.map((feature, index) => (
-              <ScrollAnimation key={index} delay={index * 0.2} direction="up">
-                <div className="flex flex-col items-center space-y-4 p-6 bg-primary-foreground rounded-lg">
-                  <div className="p-3 rounded-full bg-accent/10">
-                    <feature.icon className="h-10 w-10 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-bold text-primary">{feature.name}</h3>
-                  <p className="text-center text-muted-foreground">{feature.description}</p>
-                </div>
-              </ScrollAnimation>
-            ))}
+        <ScrollAnimation className="flex flex-col items-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-primary">
+              Engineered for Champions
+            </h2>
+            <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+              Our equipment is designed with input from world champions and biomechanics experts to deliver unmatched
+              performance and results.
+            </p>
           </div>
+        </ScrollAnimation>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+          {features.map((feature, index) => (
+            <ScrollAnimation key={index} delay={index * 0.2} direction="up">
+              <motion.div
+                className="flex flex-col items-center space-y-4 p-6 bg-transparent rounded-lg"
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="p-3 rounded-full bg-accent/10">
+                  <feature.icon className="h-10 w-10 text-accent" />
+                </div>
+                <h3 className="text-xl font-bold text-primary">{feature.name}</h3>
+                <p className="text-center text-muted-foreground">{feature.description}</p>
+              </motion.div>
+            </ScrollAnimation>
+          ))}
         </div>
       </section>
 
       <section className="py-20 bg-accent text-accent-foreground">
-        <div className="container px-4 md:px-6">
-          <ScrollAnimation className="flex flex-col items-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                Competition-Grade Equipment
-              </h2>
-              <p className="mx-auto max-w-[700px] md:text-xl">
-                Explore our tournament-approved equipment used by champions worldwide.
-              </p>
-            </div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button asChild className="mt-8 bg-primary hover:bg-primary/90">
-                <Link href="/products">View All Equipment</Link>
-              </Button>
-            </motion.div>
-          </ScrollAnimation>
-        </div>
+        <ScrollAnimation className="flex flex-col items-center space-y-4 text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Competition-Grade Equipment
+            </h2>
+            <p className="mx-auto max-w-[700px] md:text-xl">
+              Explore our tournament-approved equipment used by champions worldwide.
+            </p>
+          </div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button asChild className="mt-8 bg-primary hover:bg-primary/90">
+              <Link href="/products">View All Equipment</Link>
+            </Button>
+          </motion.div>
+        </ScrollAnimation>
       </section>
 
       <section className="py-20 bg-background">
-        <div className="container px-4 md:px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <ScrollAnimation direction="left">
-              <div className="relative h-[400px] rounded-lg overflow-hidden">
-                <Image
-                  src="https://images.pexels.com/photos/8111311/pexels-photo-8111311.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-                  alt="Arm wrestling competition"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </ScrollAnimation>
-            <ScrollAnimation direction="right" delay={0.2}>
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-primary">Train Like a Champion</h2>
-                <p className="text-muted-foreground">
-                  Our equipment is used by professional arm wrestlers around the world, including multiple world
-                  champions and national team members. With ArmForce Pro gear, you're training with the same tools the
-                  pros use.
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-center gap-2">
-                    <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Biomechanically optimized designs</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Tournament-approved specifications</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>Comprehensive training systems</span>
-                  </li>
-                </ul>
-                <Button asChild>
-                  <Link href="/products">Explore Training Equipment</Link>
-                </Button>
-              </div>
-            </ScrollAnimation>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <ScrollAnimation direction="left">
+            <div className="relative h-[400px] rounded-lg overflow-hidden">
+              <Image
+                src="https://images.pexels.com/photos/8111311/pexels-photo-8111311.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                alt="Arm wrestling competition"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </ScrollAnimation>
+          <ScrollAnimation direction="right" delay={0.2}>
+            <div className="space-y-6">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-primary">Train Like a Champion</h2>
+              <p className="text-muted-foreground">
+                Our equipment is used by professional arm wrestlers around the world, including multiple world
+                champions and national team members. With BOERFORCE gear, you're training with the same tools the
+                pros use.
+              </p>
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2">
+                  <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Biomechanically optimized designs</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Tournament-approved specifications</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Comprehensive training systems</span>
+                </li>
+              </ul>
+              <Button asChild>
+                <Link href="/products">Explore Training Equipment</Link>
+              </Button>
+            </div>
+          </ScrollAnimation>
         </div>
       </section>
     </main>
@@ -184,7 +183,7 @@ const features = [
   {
     name: "Tournament Approved",
     description: "Our competition equipment meets or exceeds all international arm wrestling federation standards.",
-    icon: (props) => (
+    icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -205,7 +204,7 @@ const features = [
     name: "Biomechanically Optimized",
     description:
       "Designed with advanced biomechanical principles to maximize training efficiency and prevent injuries.",
-    icon: (props) => (
+    icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -227,7 +226,7 @@ const features = [
   {
     name: "Lifetime Performance Guarantee",
     description: "We stand behind our equipment with comprehensive warranty coverage and performance guarantees.",
-    icon: (props) => (
+    icon: (props: React.SVGProps<SVGSVGElement>) => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

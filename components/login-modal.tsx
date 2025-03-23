@@ -61,7 +61,7 @@ export default function LoginModal({ isOpen, onClose }: LoginModalProps) {
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-primary">Login to ArmForce Pro</DialogTitle>
+          <DialogTitle className="text-2xl font-bold text-primary">Login to BOERFORCE</DialogTitle>
           <DialogDescription>Enter your credentials to access your account and manage your orders.</DialogDescription>
         </DialogHeader>
 

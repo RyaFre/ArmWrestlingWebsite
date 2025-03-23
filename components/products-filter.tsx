@@ -68,6 +68,21 @@ export default function ProductsFilter() {
               </div>
             </AccordionContent>
           </AccordionItem>
+          <AccordionItem value="size">
+            <AccordionTrigger className="text-base font-medium">Size</AccordionTrigger>
+            <AccordionContent>
+              <div className="space-y-2 pt-2">
+                {sizes.map((size) => (
+                  <div key={size} className="flex items-center space-x-2">
+                    <Checkbox id={`size-${size}`} />
+                    <Label htmlFor={`size-${size}`} className="font-normal">
+                      {size}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
         </Accordion>
       </div>
     </motion.div>
@@ -75,6 +90,7 @@ export default function ProductsFilter() {
 }
 
 const categories = [
+  "All Categories",
   "Competition Equipment",
   "Grip & Wrist Training",
   "Resistance Training",
@@ -83,5 +99,7 @@ const categories = [
   "Accessories",
 ]
 
-const brands = ["ArmMaster", "GripForce", "PowerMetrics", "ElitePull", "HydroForce", "PullPro"]
+const brands = ["BOERFORCE", "GripForce", "PowerMetrics", "ElitePull", "HydroForce", "PullPro"]
+
+const sizes = ["Universal", "Slim", "Wide", "Extra-Wide"]
 

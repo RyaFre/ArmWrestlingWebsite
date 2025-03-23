@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="container px-4 md:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">ArmForce Pro</h3>
+            <h3 className="text-lg font-bold">BOERFORCE</h3>
             <p className="text-sm text-primary-foreground/80">
               Revolutionary arm wrestling equipment for champions. Quality, innovation, and performance.
             </p>
@@ -113,7 +113,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-12 pt-8 border-t border-primary-foreground/10 text-center text-sm text-primary-foreground/60">
-          <p>© {new Date().getFullYear()} ArmForce Pro. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} BOERFORCE. All rights reserved.</p>
         </div>
       </div>
     </footer>
