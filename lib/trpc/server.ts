@@ -46,7 +46,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.6,
-    inStock: true,
+    inStock: true
   },
   {
     id: "5",
@@ -57,7 +57,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.9,
-    inStock: true,
+    inStock: true
   },
   {
     id: "6",
@@ -68,7 +68,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.5,
-    inStock: true,
+    inStock: true
   },
   {
     id: "7",
@@ -79,7 +79,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 5.0,
-    inStock: true,
+    inStock: true
   },
   {
     id: "8",
@@ -90,7 +90,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.7,
-    inStock: true,
+    inStock: true
   },
   {
     id: "9",
@@ -101,7 +101,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.8,
-    inStock: true,
+    inStock: true
   },
   {
     id: "10",
@@ -112,7 +112,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.6,
-    inStock: true,
+    inStock: true
   },
   {
     id: "11",
@@ -123,7 +123,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.7,
-    inStock: true,
+    inStock: true
   },
   {
     id: "12",
@@ -134,7 +134,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.9,
-    inStock: true,
+    inStock: true
   },
   {
     id: "13",
@@ -145,7 +145,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.8,
-    inStock: true,
+    inStock: true
   },
   {
     id: "14",
@@ -156,7 +156,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.7,
-    inStock: true,
+    inStock: true
   },
   {
     id: "15",
@@ -167,7 +167,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.6,
-    inStock: true,
+    inStock: true
   },
   {
     id: "16",
@@ -178,7 +178,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 4.9,
-    inStock: true,
+    inStock: true
   },
   {
     id: "17",
@@ -189,7 +189,7 @@ const products: Product[] = [
     category: "Grip & Wrist Training",
     brand: "BOERFORCE",
     rating: 5.0,
-    inStock: true,
+    inStock: true
   },
 ]
 
